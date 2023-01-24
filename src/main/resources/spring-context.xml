@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+  <bean id="questionsDao" class="ru.epozin.otus.dao.QuestionsDaoSimple">
+    <constructor-arg name="parserCSV" ref = "parser"/>
+  </bean>
+  <bean id="parser" class="ru.epozin.otus.parser.ParserCSV"></bean>
+  <bean id="questionService" class="ru.epozin.otus.service.QuestionsServiceImpl">
+    <constructor-arg name="dao" ref="questionsDao"/>
+  </bean>
+</beans>
