@@ -8,6 +8,7 @@ import java.io.InputStreamReader;
 import ru.epozin.otus.domain.Question;
 
 public interface QuestionsService {
-  Question getQuestion(Integer questionNumber);
+  void doJob();
+  void askQuestion();
 
 }

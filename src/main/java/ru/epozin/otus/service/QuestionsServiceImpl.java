@@ -1,44 +1,33 @@
 package ru.epozin.otus.service;
 
-import com.opencsv.bean.CsvToBeanBuilder;
-import java.io.InputStreamReader;
-import java.util.List;
 import ru.epozin.otus.dao.QuestionsDao;
-import ru.epozin.otus.dao.QuestionsDaoSimple;
-import ru.epozin.otus.domain.Question;
 
 public class QuestionsServiceImpl implements QuestionsService {
+  private final Parser parser;
+  private final QuestionsDao dao;
 
-  private String resourcePath;
 
-  private QuestionsDao dao;
-
-  public QuestionsServiceImpl(QuestionsDao dao) {
+  public QuestionsServiceImpl(Parser parser, QuestionsDao dao) {
+    this.parser = parser;
     this.dao = dao;
+
   }
 
-  @Override
-  public Question getQuestion(Integer questionNumber) {
-    return dao.getQuestionByNumber(questionNumber);
-  }
-
-  public void setQuestionParams() {
-    List<QuestionsDaoSimple> questions =
-        new CsvToBeanBuilder(
-                new InputStreamReader(QuestionsService.class.getResourceAsStream(resourcePath)))
-            .withType(QuestionsDao.class)
-            .build()
-            .parse();
-    for(int i = 0; i<questions.size(); i++){
-      QuestionsDao question = new QuestionsDaoSimple();
+  public void doJob() {
+    parser.parse();
+    dao.setQuestions(parser.getQuestions());
+    for (int i = 0; i<5; i++) {
+      System.out.println("Question #" + dao.getQuestionByNumber(i).getQuestionNumber());
+      System.out.println(dao.getQuestionByNumber(i).getQuestionText());
+      System.out.println(dao.getQuestionByNumber(i).getOptions());
     }
+
+
+
+    }
+
+  public void askQuestion(){
+
   }
 
-  public void setQuestionsParams(){
-
-  }
-
-  public void setResourcePath(String resourcePath) {
-    this.resourcePath = resourcePath;
-  }
 }
