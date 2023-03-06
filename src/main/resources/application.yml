@@ -2,6 +2,9 @@ spring:
   messages:
     basename: i18n/appmessages
     encoding: utf-8
+  shell:
+    interactive:
+      enabled: false
 csv:
   resourcePath: ./questionsRu.csv
   separator: ":"
