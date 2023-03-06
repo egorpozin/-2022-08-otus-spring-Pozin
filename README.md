@@ -1,1 +1,1 @@
-# -2022-08-otus-spring-Pozin
+-2022-08-otus-spring-Pozin
