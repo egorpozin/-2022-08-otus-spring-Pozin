@@ -1,0 +1,12 @@
+spring:
+  messages:
+    basename: i18n/appmessages
+    encoding: utf-8
+csv:
+  resourcePath: ./questionsRu.csv
+  separator: ":"
+  skipLines: 1
+quiz:
+  requiredAnswers: 4
+application:
+  locale: ru_RU
