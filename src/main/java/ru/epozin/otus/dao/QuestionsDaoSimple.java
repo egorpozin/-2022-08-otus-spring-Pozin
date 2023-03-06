@@ -1,20 +1,30 @@
 package ru.epozin.otus.dao;
 
-import com.opencsv.bean.CsvBindByPosition;
+import ru.epozin.otus.domain.Question;
+import ru.epozin.otus.parser.Parser;
+import ru.epozin.otus.parser.ParserCSV;
+
 import java.util.ArrayList;
 import java.util.List;
-import ru.epozin.otus.domain.Question;
+
 
 public class QuestionsDaoSimple implements QuestionsDao {
 
-  public List<Question> questions;
 
-  @Override
-  public Question getQuestionByNumber(int questionNumber) {
-    return questions.get(questionNumber);
-  }
+    private final Parser parserCSV;
 
-  public void setQuestions(List<Question> questions) {
-    this.questions = questions;
-  }
+    public QuestionsDaoSimple(ParserCSV parserCSV) {
+        this.parserCSV = parserCSV;
+    }
+
+    public List<Question> getQuestions() {
+        List<Question> questionsList = new ArrayList<>();
+        List<String[]> questions = parserCSV.parseQuestions();
+        for (String[] row : questions) {
+            Question question = new Question(row[1], Integer.parseInt(row[0]), row[2], row[3]);
+            questionsList.add(question);
+        }
+
+        return questionsList;
+    }
 }
